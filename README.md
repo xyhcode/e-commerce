@@ -6,7 +6,10 @@
 ![输入图片说明](https://sls-study-cloud-1301165591.cos.ap-guangzhou.myqcloud.com/gitee/e-commerce/iShot2022-04-11_21.11.59.png)
 
 ## 项目架构
-Vue2 element UI axios 
+Vue2 element UI axios
+
+## 项目接口参考
+[项目API接口](https://gitee.com/xyhcodefilter/shop-server)
 
 ## Project setup
 ```
