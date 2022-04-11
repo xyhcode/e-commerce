@@ -1,0 +1,28 @@
+/*全局样式*/
+html,body,#app{
+    height: 100%;
+    margin:0px;
+    padding:0px;
+}
+.el-breadcrumb{
+    margin-bottom: 15px;
+    height: 100%;
+}
+
+.el-table .warning-row {
+    background: oldlace;
+}
+
+.el-table .success-row {
+    background: #f0f9eb;
+}
+
+.el-table{
+    margin-top: 20px;
+}
+
+.el-pagination{
+    margin-top:10px
+}
+
+
