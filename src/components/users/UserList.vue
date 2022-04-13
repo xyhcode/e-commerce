@@ -183,7 +183,7 @@ export default {
     //获取所有的List
     async getlist(){
       let res=await this.$http.get('users',{params:this.queryinfo});
-      if(res.meta.status!=200){
+      if(res.meta.status!==200){
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -196,7 +196,7 @@ export default {
     },
     //隔行变色
     tableRowClassName({row, rowIndex}) {
-      if (rowIndex %2==0) {
+      if (rowIndex %2===0) {
         return 'warning-row';
       } else{
         return 'success-row';
@@ -221,7 +221,7 @@ export default {
         type: 'warning',
       }).then(async () => {
         let res = await this.$http.delete('users/' + id);
-        if(res.meta.status==200){
+        if(res.meta.status===200){
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -256,7 +256,7 @@ export default {
     //修改状态
     async stutschang(uslis) {
       let res=await this.$http.put(`users/${uslis.id}/state/${uslis.mg_state}`);
-      if(res.meta.status==200){
+      if(res.meta.status===200){
         this.$message({
           type: 'success',
           message: '状态修改成功!'
@@ -281,7 +281,7 @@ export default {
     //添加框确定
     adduser(){
       this.$refs.ruleForm.validate(async ok => {
-        if (ok != true) {
+        if (ok !== true) {
           this.$message({
             type: 'warning',
             message: '请检查用户的信息!'
@@ -290,7 +290,7 @@ export default {
         } else {
           //请求添加用户
           let res = await this.$http.post('users', this.ruleForm);
-          if(res.meta.status==201){
+          if(res.meta.status===201){
             //关闭窗口 添加成功
             this.dialogVisible=false;
             this.$message({
@@ -322,7 +322,7 @@ export default {
     //用户编辑确定
     editusqr(){
       this.$refs.editruleForm.validate(async ok => {
-        if (ok != true) {
+        if (ok !==true) {
           this.$message({
             type: 'warning',
             message: '请检查编辑的信息!'
@@ -331,7 +331,7 @@ export default {
         } else {
           let res = await this.$http.put('users/'+this.editform.id,this.editform);
           console.log(res);
-          if(res.meta.status ==200){
+          if(res.meta.status===200){
             this. edituser=false;
             this.$message({
               showClose: true,

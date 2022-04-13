@@ -49,7 +49,7 @@ export default {
     login(){
       //验证是否满足规则 true：满足  false:不满足 ruleForm是上面定义的：model
       this.$refs.ruleForm.validate(async (valid) => {
-        if(valid!=true){
+        if(valid!==true){
           this.$message({
             showClose: true,
             message: '请检查账号密码！',
@@ -60,7 +60,7 @@ export default {
           //axios请求
           let ret=await this.$http.post('login',this.ruleForm);
           //登入成功
-          if(ret.meta.status==200){
+          if(ret.meta.status===200){
             this.$message({
               showClose: true,
               message: '登入成功！',

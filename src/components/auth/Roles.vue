@@ -160,7 +160,7 @@ export default {
     //查询所有角色
     async getroles() {
       let res = await this.$http.get('roles');
-      if (res.meta.status !=200){
+      if (res.meta.status !==200){
         this.$message({
           showClose:true,
           message:res.meta.msg,
@@ -172,7 +172,7 @@ export default {
     },
     //隔行变色
     tableRowClassName({row, rowIndex}) {
-      if (rowIndex % 2== 0) {
+      if (rowIndex % 2=== 0) {
         return 'warning-row';
       } else {
         return 'success-row';
@@ -199,7 +199,7 @@ export default {
     //获取所有的权限
     async getdgrol() {
       let les = await this.$http.get('rights/tree');
-      if (les.meta.status != 200) {
+      if (les.meta.status !== 200) {
         this.$message({
           showClose: true,
           message: les.meta.msg,
@@ -219,7 +219,7 @@ export default {
       var rids = key.join(",");
       console.log(rids);
       let res=await this.$http.post(`roles/${pid}/rights`,{rids:rids});
-      if(res.meta.status!=200){
+      if(res.meta.status!==200){
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -251,7 +251,7 @@ export default {
         type: 'warning',
       }).then(async () => {
         let res=await this.$http.delete('roles/' + zgid);
-        if(res.meta.status==200){
+        if(res.meta.status===200){
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -277,14 +277,14 @@ export default {
     //添加角色确定
     addrol(){
       this.$refs.rolseForm.validate(async ok => {
-        if (ok != true) {
+        if (ok !== true) {
           this.$message({
             type: 'warning',
             message: '请检查角色的信息!'
           });
         } else {
           let res=await this.$http.post('roles', this.rolseForm);
-          if(res.meta.status==201){
+          if(res.meta.status===201){
             this.$message({
               type: 'success',
               message: '角色添加成功!'
@@ -315,14 +315,14 @@ export default {
     //编辑确定
     editrolqd(){
       this.$refs.editrolseForm.validate(async ok => {
-        if (ok != true) {
+        if (ok !== true) {
           this.$message({
             type: 'warning',
             message: '请检查角色的信息!'
           });
         } else {
           let res=await this.$http.put('roles/' + this.editrolseForm.id, this.editrolseForm);
-          if(res.meta.status==200){
+          if(res.meta.status===200){
             this.$message({
               type: 'success',
               message: '角色编辑成功!'
@@ -349,7 +349,7 @@ export default {
         type: 'warning',
       }).then(async () => {
         let res=await this.$http.delete(`roles/${rorow.id}/rights/${rid}`);
-        if(res.meta.status==200){
+        if(res.meta.status===200){
           this.$message({
             type: 'success',
             message: '删除成功!'

@@ -230,7 +230,7 @@ export default {
     //获取所有的商品
     async getGoods() {
       let res = await this.$http.get('goods',{params:this.queryinfo});
-      if(res.meta.status !=200){
+      if(res.meta.status !==200){
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -244,7 +244,7 @@ export default {
     //获取所有的分类
     async getcatalogue() {
       let res = await this.$http.get('categories');
-      if(res.meta.status !=200){
+      if(res.meta.status !==200){
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -277,7 +277,7 @@ export default {
         type: 'warning',
       }).then(async () => {
         let res=await this.$http.delete('goods/' + rowconfig.goods_id);
-        if(res.meta.status==200){
+        if(res.meta.status===200){
           this.$message({
             type: 'success',
             message: '删除成功!'
@@ -315,7 +315,7 @@ export default {
      editgoodsqr() {
       //验证是否满足条件
       this.$refs.ruleForm.validate(async (ok) => {
-        if (ok != true) {
+        if (ok !== true) {
           this.$message({
             type: 'warning',
             message: '请检查商品信息!'
@@ -361,7 +361,7 @@ export default {
     //添加商品确认
     addconfirm(){
       this.$refs.addrulsForm.validate(async (ok) => {
-        if (ok != true) {
+        if (ok !== true) {
           this.$message({
             type: 'warning',
             message: '请检查添加商品信息!'
@@ -372,7 +372,7 @@ export default {
           this.addrom.goods_cat=this.addrom.goods_cat.join(',');
           //发送请求
           let res = await this.$http.post('goods',this.addrom);
-          if(res.meta.status==201){
+          if(res.meta.status===201){
             this.addgoodsf=false;
             this.$message({
               showClose: true,

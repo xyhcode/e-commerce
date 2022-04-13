@@ -11,8 +11,10 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+//引入terr-table
 import treetable from 'vue-table-with-tree-grid'
 Vue.use(VueQuillEditor);
+//组件使用tree-table
 Vue.component('tree-table', treetable);
 //axios挂Vue
 Vue.prototype.$http =axios;
@@ -24,6 +26,7 @@ axios.interceptors.request.use(function (res){
   return res;
 })
 
+//过滤时间
 Vue.filter("create_time", function(value) {
   return moment(value*1000).format("yyyy-MM-DD HH:mm:ss");
 });
@@ -41,7 +44,6 @@ Vue.use(ElementUI)
 import App from './App.vue'
 import moment from "moment";
 Vue.config.productionTip = false
-
 new Vue({
   router,
   render: h => h(App)

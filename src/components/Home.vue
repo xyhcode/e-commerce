@@ -72,7 +72,7 @@ export default {
   },
   async mounted(){
     let res=await this.$http.get('menus');
-    if(res.meta.status!=200){
+    if(res.meta.status!==200){
       this.$message({
         showClose: true,
         message: res.meta.msg,

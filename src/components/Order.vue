@@ -198,7 +198,7 @@ export default {
     async getorder(){
       //console.log(1);
       let res=await this.$http.get('orders',{params:this.queryinfo});
-      if(res.meta.status !=200){
+      if(res.meta.status !==200){
         this.$message({
           showClose:true,
           message:res.meta.msg,
@@ -221,7 +221,7 @@ export default {
     },
     //隔行变色
     tableRowClassName({row, rowIndex}) {
-      if (rowIndex %2==0) {
+      if (rowIndex %2===0) {
         return 'warning-row';
       } else{
         return 'success-row';
@@ -241,7 +241,7 @@ export default {
     //确认修改
     changorder(){
       this.$refs.editruleForm.validate(async (ok) => {
-        if (ok != true) {
+        if (ok !== true) {
           //添加失败
           this.$message({
             type: 'warning',

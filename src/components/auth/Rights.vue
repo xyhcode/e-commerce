@@ -45,7 +45,7 @@ export default {
     async getright() {
       let les = await this.$http.get('rights/list');
       console.log(les);
-      if(les.meta.status !=200){
+      if(les.meta.status !==200){
         this.$message({
           showClose:true,
           message:les.meta.msg,

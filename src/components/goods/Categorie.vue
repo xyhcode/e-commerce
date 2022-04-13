@@ -155,7 +155,7 @@ export default {
   methods:{
     //隔行变色
     tableRowClassName({row, rowIndex}) {
-      if (rowIndex %2==0) {
+      if (rowIndex %2===0) {
         return 'warning-row';
       } else{
         return 'success-row';
@@ -165,7 +165,7 @@ export default {
     async getcat() {
       let res = await this.$http.get('categories',{params:this.ctparam});
       /*console.log(res);*/
-      if(res.meta.status !=200){
+      if(res.meta.status !==200){
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -267,7 +267,7 @@ export default {
         type: 'warning',
       }).then(async () => {
         let res=await this.$http.delete('categories/' +e);
-        if(res.meta.status==200){
+        if(res.meta.status===200){
           this.$message({
             type: 'success',
             message: '删除成功!'
