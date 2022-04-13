@@ -6,7 +6,29 @@
       <el-breadcrumb-item><a>权限列表</a></el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="box-card">
-      <el-tree :data="rouls" default-expand-all show-checkbox :props="defaultProps"></el-tree>
+      <el-table border :data="rouls">
+        <el-table-column
+          type="index"
+          label="#">
+        </el-table-column>
+        <el-table-column
+          prop="authName"
+          label="权限名称">
+        </el-table-column>
+        <el-table-column
+          prop="path"
+          label="权限路径">
+        </el-table-column>
+        <el-table-column
+          prop="level"
+          label="权限等级">
+          <template v-slot="scope">
+            <el-tag v-if="scope.row.level == 0">一级</el-tag>
+            <el-tag v-if="scope.row.level == 1" type="success">二级</el-tag>
+            <el-tag v-if="scope.row.level == 2" type="warning">三级</el-tag>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-card>
   </div>
 </template>
@@ -17,15 +39,12 @@ export default {
   data(){
     return{
       rouls:[],
-      defaultProps: {
-        children: 'children',
-        label: 'authName'
-      }
     }
   },
   methods:{
     async getright() {
-      let les = await this.$http.get('rights/tree');
+      let les = await this.$http.get('rights/list');
+      console.log(les);
       if(les.meta.status !=200){
         this.$message({
           showClose:true,

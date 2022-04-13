@@ -5,7 +5,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/global.css'
 import axios from 'axios'
 import '@/assets/fonts/iconfont.css'
-
+// 引入富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+// require styles 引入样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import treetable from 'vue-table-with-tree-grid'
+Vue.use(VueQuillEditor);
+Vue.component('tree-table', treetable);
 //axios挂Vue
 Vue.prototype.$http =axios;
 axios.defaults.baseURL="http://47.101.177.78:8888/api/private/v1/"

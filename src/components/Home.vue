@@ -1,6 +1,6 @@
 <template>
     <el-container class="hompa">
-      <el-aside width="200px">
+      <el-aside width="200px" style="overflow:hidden">
         <div @click="gohome" style="height: 60px" class="tb">
           <img src="../assets/logo.png" width="50px" height="100%"/>
           <span>后台管理系统</span>

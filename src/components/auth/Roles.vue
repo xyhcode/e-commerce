@@ -9,7 +9,7 @@
       <el-button type="primary" @click="adtk">添加角色</el-button>
       <div  class="text item">
         <el-table border
-                  :data="rolelis" :row-class-name="tableRowClassName">
+                  :data="rolelis" >
           <el-table-column type="expand">
             <template v-slot="props">
               <el-empty v-if="props.row.children.length==0"></el-empty>
@@ -48,7 +48,7 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button size="mini" type="button" @click="edrl(scope.row)">编辑</el-button>
+              <el-button size="mini" type="primary" @click="edrl(scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="de(scope.row.id)">删除</el-button>
               <el-button size="mini" type="warning" @click="fpqx(scope.row)">分配权限</el-button>
             </template>

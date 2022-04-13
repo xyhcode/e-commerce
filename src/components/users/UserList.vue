@@ -19,7 +19,7 @@
       </el-row>
       <div  class="text item">
         <el-table border
-          :data="uslist" :row-class-name="tableRowClassName">
+          :data="uslist" >
           <el-table-column
             type="index"
             label="#">
@@ -60,7 +60,7 @@
           </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
-              <el-button size="mini" type="button" @click="editus(scope.row)">编辑</el-button>
+              <el-button size="mini" type="primary" @click="editus(scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
             </template>
           </el-table-column>
