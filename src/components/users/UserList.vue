@@ -38,7 +38,7 @@
           </el-table-column>
           <el-table-column
             prop="mg_state"
-            label="当前状态">
+            label="当前状态" width="77px">
             <template v-slot="scope">
               <el-switch
                 v-model="scope.row.mg_state"
@@ -58,9 +58,10 @@
               {{scope.row.create_time | create_time}}
             </template>
           </el-table-column>
-          <el-table-column label="操作">
+          <el-table-column label="操作" width="235px">
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="editus(scope.row)">编辑</el-button>
+              <el-button size="mini" type="warning" @click="disrol(scope.row)">分配权限</el-button>
               <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
             </template>
           </el-table-column>
@@ -112,12 +113,41 @@
           <el-input v-model=" editform.email"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="mobile">
-          <el-input v-model=" editform.mobile"></el-input>
+          <el-input v-model="editform.mobile"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
     <el-button @click="edituser = false">取 消</el-button>
     <el-button type="primary" @click="editusqr">确 定</el-button>
+  </span>
+    </el-dialog>
+
+
+    <el-dialog
+      title="分配角色"
+      :visible.sync="distr"
+      width="40%" @close="rolwin">
+      <el-form :model="disf" :rules="distroles" ref="distruleForm" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="当前的用户" prop="username">
+          <el-input :disabled="true" v-model="disf.username"></el-input>
+        </el-form-item>
+        <el-form-item label="当前的角色" prop="rolname">
+          <el-input :disabled="true" v-model="disf.rolname"></el-input>
+        </el-form-item>
+        <el-form-item label="分配新角色" prop="role">
+          <el-select v-model="disf.role" placeholder="请选择角色">
+            <el-option
+              v-for="item in rolelist"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="distr = false">取 消</el-button>
+    <el-button type="primary" @click="disroleqr">确 定</el-button>
   </span>
     </el-dialog>
 
@@ -173,11 +203,25 @@ export default {
           { required: true, message: '请输入电话'},
         ]
       },
-      edituser:false
+      edituser:false,
+      distr:false,
+      disf:{
+        role:'',
+        username:'',
+        rolname:'',
+        id:0
+      },
+      distroles:{
+        role:[
+          { required: true, message: '请选择角色', trigger: 'change' }
+        ]
+      },
+      rolelist:[]
     }
   },
   async mounted() {
     await this.getlist();
+    await this.getroles();
   },
   methods:{
     //获取所有的List
@@ -192,6 +236,18 @@ export default {
       }else{
         this.uslist=res.data.users;
         this.total=res.data.total;
+      }
+    },
+    //获取角色列表
+    async getroles () {
+      let res = await this.$http.get('roles');
+      if(res.meta.status!==200){
+        this.$message({
+          type: 'error',
+          message: '角色列表获取错误!'
+        });
+      }else{
+        this.rolelist=res.data;
       }
     },
     //隔行变色
@@ -348,6 +404,39 @@ export default {
           }
         }
       })
+    },
+    //分配权限列表
+    disrol(row){
+      console.log(row);
+      this.disf.username=row.username;
+      this.disf.rolname=row.role_name;
+      this.disf.id=row.id;
+      this.distr=true;
+    },
+    //分配角色关闭
+    rolwin(){
+      this.$refs.distruleForm.resetFields();
+    },
+    //分配角色确定
+    async disroleqr () {
+      let res = await this.$http.put(`users/${this.disf.id}/role`, {
+        rid: this.disf.role
+      });
+      if(res.meta.status===200){
+        this.distr=false;
+        this.$message({
+          showClose: true,
+          message: '授权成功！',
+          type: 'success'
+        });
+        await this.getlist();
+      }else{
+        this.$message({
+          showClose: true,
+          message: '授权失败！',
+          type: 'error'
+        });
+      }
     }
   }
 }

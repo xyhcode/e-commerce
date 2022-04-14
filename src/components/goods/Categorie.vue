@@ -7,7 +7,7 @@
     </el-breadcrumb>
     <el-card class="box-card">
       <el-button type="primary" @click="addfwin">添加分类</el-button>
-      <div  class="text item">
+      <div class="text item">
         <tree-table class="treeTable" :data="calis" :columns="columns" :selection-type="false" :expand-type="false" show-index index-text="#" border :show-row-hover="false">
           <!-- 是否有效 -->
           <template slot="isok" slot-scope="scope">
