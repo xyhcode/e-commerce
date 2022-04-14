@@ -52,7 +52,8 @@
             v-model="selectarray"
             :options="options"
             placeholder="请选择父级分类"
-            :props="opoprops" @change="getkey"></el-cascader>
+            :props="opoprops" @change="getkey">
+          </el-cascader>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

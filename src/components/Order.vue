@@ -124,7 +124,7 @@ export default {
         address:'九华创新创业中心3栋',
       },
       rulorder:{
-        address:[ { required: true, message: '详细地址不能为空！'},]
+        address:[ { required: true, message: '详细地址不能为空！'}]
       },
       log:[
         {
