@@ -159,12 +159,12 @@ export default {
   name: "UserList",
   data(){
     return{
-      queryinfo:{
+      queryinfo:{//查询参数
         query:'',
         pagenum:1,
         pagesize:2
       },
-      uslist:[],
+      uslist:[],//用户列表
       total:0,
       seavl:'',
       dialogVisible:false,
@@ -179,7 +179,7 @@ export default {
         email:'',
         mobile:''
       },
-      editroles:{
+      editroles:{//编辑规则1
         email:[
           { required: true, message: '请输入邮箱地址', trigger: 'blur' },
           { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
@@ -188,6 +188,7 @@ export default {
           { required: true, message: '请输入电话'},
         ]
       },
+      //添加用户规则
       rules:{
         username:[
           {required: true, message: '请输入用户名', trigger: 'blur'},
@@ -211,7 +212,7 @@ export default {
         rolname:'',
         id:0
       },
-      distroles:{
+      distroles:{//分配权限规则
         role:[
           { required: true, message: '请选择角色', trigger: 'change' }
         ]
@@ -228,6 +229,7 @@ export default {
     async getlist(){
       let res=await this.$http.get('users',{params:this.queryinfo});
       if(res.meta.status!==200){
+        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -242,9 +244,10 @@ export default {
     async getroles () {
       let res = await this.$http.get('roles');
       if(res.meta.status!==200){
+        throw new Error(res.meta.msg);
         this.$message({
           type: 'error',
-          message: '角色列表获取错误!'
+          message: res.meta.msg
         });
       }else{
         this.rolelist=res.data;
@@ -284,9 +287,10 @@ export default {
           });
           await this.getlist();
         }else{
+          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
-            message: '删除失败!'
+            message: res.meta.msg
           });
         }
       }).catch(() => {
@@ -319,9 +323,10 @@ export default {
         });
       }else{
         uslis.mg_state=!uslis.mg_state;
+        throw new Error(res.meta.msg);
         this.$message({
           type: 'error',
-          message: '状态修改失败!'
+          message: res.meta.msg
         });
       }
       console.log(uslis);
@@ -357,10 +362,11 @@ export default {
             //重新查询
             await this.getlist();
           }else{
+            throw new Error(res.meta.msg);
             //添加失败
             this.$message({
               showClose: true,
-              message: '用户添加失败！',
+              message: res.meta.msg,
               type: 'error'
             });
           }
@@ -418,25 +424,36 @@ export default {
       this.$refs.distruleForm.resetFields();
     },
     //分配角色确定
-    async disroleqr () {
-      let res = await this.$http.put(`users/${this.disf.id}/role`, {
-        rid: this.disf.role
+    disroleqr () {
+      this.$refs.distruleForm.validate(async (ok) => {
+        if (ok !== true) {
+          this.$message({
+            type: 'warning',
+            message: '请检查分配信息!'
+          });
+          return;
+        } else {
+          let res = await this.$http.put(`users/${this.disf.id}/role`, {
+            rid: this.disf.role
+          });
+          if(res.meta.status===200){
+            this.distr=false;
+            this.$message({
+              showClose: true,
+              message: '授权成功！',
+              type: 'success'
+            });
+            await this.getlist();
+          }else{
+            throw new Error(res.meta.msg);
+            this.$message({
+              showClose: true,
+              message: res.meta.msg,
+              type: 'error'
+            });
+          }
+        }
       });
-      if(res.meta.status===200){
-        this.distr=false;
-        this.$message({
-          showClose: true,
-          message: '授权成功！',
-          type: 'success'
-        });
-        await this.getlist();
-      }else{
-        this.$message({
-          showClose: true,
-          message: '授权失败！',
-          type: 'error'
-        });
-      }
     }
   }
 }

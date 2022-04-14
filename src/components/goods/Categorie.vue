@@ -85,9 +85,9 @@ export default {
   name: "Categorie",
   data(){
     return{
-      calis:[],
-      total:0,
-      options:[],
+      calis:[],//所有分类
+      total:0,//总数
+      options:[],//父分类数组
       addcata:false,
       editcata:false,
       columns: [
@@ -167,6 +167,7 @@ export default {
       let res = await this.$http.get('categories',{params:this.ctparam});
       /*console.log(res);*/
       if(res.meta.status !==200){
+        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -248,9 +249,10 @@ export default {
             });
           }else{
             //添加失败
+            throw new Error(res.meta.msg);
             this.$message({
               showClose: true,
-              message: '商品类别添加失败！',
+              message: res.meta.msg,
               type: 'error'
             });
           };
@@ -275,9 +277,10 @@ export default {
           });
           await this.getcat();
         }else{
+          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
-            message: '删除失败!'
+            message: res.meta.msg
           });
         }
       }).catch(() => {
@@ -324,9 +327,10 @@ export default {
             });
             await this.getcat();
           }else{
+            throw new Error(res.meta.msg);
             this.$message({
               type: 'error',
-              message: '编辑失败!'
+              message: res.meta.msg
             });
           }
         }

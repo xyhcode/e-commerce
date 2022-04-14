@@ -73,7 +73,7 @@
     <el-dialog
       title="添加角色"
       :visible.sync="addrolues"
-      width="40%" @close="roclera">
+      width="40%" @close="adroclera">
       <el-form :model="rolseForm" :rules="rules" ref="rolseForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="角色名称" prop="roleName">
           <el-input v-model="rolseForm.roleName"></el-input>
@@ -115,25 +115,31 @@ export default {
   name: "Roles",
   data(){
     return{
-      rolelis:[],
+      rolelis:[],//角色列表
+      //树形配置属性
       defaultProps: {
         children: 'children',
         label: 'authName'
       },
+      //分配权限窗口隐藏显示
       ass:false,
       qxlis:[],
       selekey:[],
       id:0,
+      //添加窗口是否显示
       addrolues:false,
+      //添加弹窗属性
       rolseForm:{
         roleName:'',
         roleDesc:''
       },
+      //编辑弹窗属性
       editrolseForm:{
         roleName:'',
         roleDesc:'',
         id:0
       },
+      //添加弹窗规则
       rules:{
         roleName:[
           {required: true, message: '请输入角色名称', trigger: 'blur'},
@@ -142,6 +148,7 @@ export default {
           {required: true, message: '请输入角色描述', trigger: 'blur'},
         ]
       },
+      //编辑弹窗规则
       editrules:{
         roleName:[
           {required: true, message: '请输入角色名称', trigger: 'blur'},
@@ -150,6 +157,7 @@ export default {
           {required: true, message: '请输入角色描述', trigger: 'blur'},
         ]
       },
+      //编辑窗口是否显示
       eeditroshow:false
     }
   },
@@ -161,6 +169,7 @@ export default {
     async getroles() {
       let res = await this.$http.get('roles');
       if (res.meta.status !==200){
+        throw new Error(res.meta.msg);
         this.$message({
           showClose:true,
           message:res.meta.msg,
@@ -200,6 +209,7 @@ export default {
     async getdgrol() {
       let les = await this.$http.get('rights/tree');
       if (les.meta.status !== 200) {
+        throw new Error(les.meta.msg);
         this.$message({
           showClose: true,
           message: les.meta.msg,
@@ -220,6 +230,7 @@ export default {
       console.log(rids);
       let res=await this.$http.post(`roles/${pid}/rights`,{rids:rids});
       if(res.meta.status!==200){
+        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -258,9 +269,10 @@ export default {
           });
           await this.getroles();
         }else{
+          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
-            message: '删除失败!'
+            message: res.meta.msg
           });
         }
       }).catch(() => {
@@ -292,18 +304,22 @@ export default {
             this.addrolues=false;
             await this.getroles();
           }else{
+            throw new Error(res.meta.msg);
             this.$message({
               type: 'error',
-              message: '添加失败!'
+              message: res.meta.msg
             });
           }
         }
       })
     },
     //关闭添加弹框清空内容
+    adroclera(){
+      this.$refs.rolseForm.resetFields();
+    },
+    //改变编辑清空内容
     roclera(){
-      this.rolseForm.roleDesc='';
-      this.rolseForm.roleName='';
+      this.$refs.editrolseForm.resetFields();
     },
     //点击编辑 弹框
     edrl(rowcont){
@@ -328,14 +344,16 @@ export default {
               message: '角色编辑成功!'
             });
             this.eeditroshow=false;
-            this.editrolseForm.roleDesc='';
+            /* this.editrolseForm.roleDesc='';
             this.editrolseForm.roleName='';
+             */
             this.editrolseForm.id=0;
             await this.getroles();
           }else{
+            throw new Error(res.meta.msg);
             this.$message({
               type: 'error',
-              message: '编辑失败!'
+              message: res.meta.msg
             });
           }
         }
@@ -356,9 +374,10 @@ export default {
           });
           rorow.children=res.data;
         }else{
+          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
-            message: '删除失败!'
+            message: res.meta.msg
           });
         }
       }).catch(() => {

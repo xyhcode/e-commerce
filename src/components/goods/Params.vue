@@ -150,17 +150,17 @@ export default {
   name:"Params",
   data() {
     return {
-      selectarray:[],
+      selectarray:[],//选中的ID
       opoprops:{//指定联级下拉的属性
         expandTrigger: 'hover',//展开
         value: 'cat_id', // 选中值的属性
         label: 'cat_name', // 名称
         children: 'children'
       },
-      options:[],
+      options:[],//联级下拉数组
       activeName:'many',
-      trendsarrtibue:[],
-      staticarrtibue:[],
+      trendsarrtibue:[],//动态数组
+      staticarrtibue:[],//静态数组
       cat_id:0,
       dialogVisible:false,
       edildia:false,
@@ -176,7 +176,7 @@ export default {
         attr_id: 0,
         cat_id:0
       },
-      rules:{
+      rules:{//添加规则
         attr_name:[
           { required: true, message: '参数不能为空！'}
         ],
@@ -184,7 +184,7 @@ export default {
           { required: true, message: '标签不能为空！'}
         ]
       },
-      edrules:{
+      edrules:{//编辑规则
         attr_name:[
           { required: true, message: '参数不能为空！'}
         ],
@@ -213,6 +213,7 @@ export default {
       let res = await this.$http.get('categories');
       /*console.log(res);*/
       if(res.meta.status !==200){
+        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -332,10 +333,10 @@ export default {
         //重新加载
         await this.getAttributelist();
       }else{
-
+        throw new Error(this.titletext+" "+res.meta.msg);
         this.$message({
           showClose: true,
-          message: this.titletext+'添加失败！',
+          message: this.titletext+' '+res.meta.msg,
           type: 'error'
         });
       }
@@ -403,9 +404,10 @@ export default {
         //重新加载
         await this.getAttributelist();
       }else{
+        throw new Error(res.meta.msg);
         this.$message({
           type: 'error',
-          message: this.titletext+'编辑失败!'
+          message: this.titletext+' '+res.meta.msg
         });
       }
     },
@@ -430,9 +432,10 @@ export default {
           //重新加载
           await this.getAttributelist();
         }else{
+          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
-            message: '删除失败!'
+            message: res.meta.msg
           });
         }
       }).catch(() => {
@@ -480,9 +483,10 @@ export default {
           //重新加载
           await this.getAttributelist();
         }else{
+          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
-            message: this.titletext+'编辑失败!'
+            message: this.titletext+' '+res.meta.msg
           });
         }
       }

@@ -103,6 +103,7 @@
 </template>
 
 <script>
+//导入城市
 import city from "@/assets/js/city_data2017_element";
 export default {
   name: "Order",
@@ -123,7 +124,7 @@ export default {
         city:['湖南省','湘潭市','雨湖区'],
         address:'九华创新创业中心3栋',
       },
-      rulorder:{
+      rulorder:{//规则
         address:[ { required: true, message: '详细地址不能为空！'}]
       },
       log:[
@@ -199,6 +200,7 @@ export default {
       //console.log(1);
       let res=await this.$http.get('orders',{params:this.queryinfo});
       if(res.meta.status !==200){
+        throw new Error(res.meta.msg);
         this.$message({
           showClose:true,
           message:res.meta.msg,

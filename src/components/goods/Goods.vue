@@ -128,6 +128,7 @@ export default {
     return{
       dialogVisible:false,
       addgoodsf:false,
+      //富文本工具栏
       editorOption:{
         placeholder:'请输入商品介绍',
         modules: {
@@ -141,13 +142,13 @@ export default {
           ]
         }
       },
-      goodslis:[],
-      queryinfo:{
+      goodslis:[],//商品列表
+      queryinfo:{//查询参数
         query:'',
         pagenum:1,
         pagesize:10
       },
-      options:[],
+      options:[],//商品类别数组
       addrom:{
         goods_name:'',
         goods_price:null,
@@ -156,7 +157,7 @@ export default {
         goods_cat:[],
         goods_introduce:''
       },
-      addruls:{
+      addruls:{//添加规则
         goods_name:[
           { required: true, message: '商品名称不能为空！'}
         ],
@@ -193,7 +194,7 @@ export default {
         goods_weight:0,
         goods_cat:[]
       },
-      rules:{
+      rules:{//编辑规则
         goods_name:[
           { required: true, message: '商品名称不能为空！'}
         ],
@@ -212,7 +213,7 @@ export default {
       }
     }
   },components: {
-    quillEditor
+    quillEditor//使用富文本组件
   },
   mounted() {
     this.getGoods();
@@ -231,6 +232,7 @@ export default {
     async getGoods() {
       let res = await this.$http.get('goods',{params:this.queryinfo});
       if(res.meta.status !==200){
+        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -245,6 +247,7 @@ export default {
     async getcatalogue() {
       let res = await this.$http.get('categories');
       if(res.meta.status !==200){
+        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
@@ -284,9 +287,10 @@ export default {
           });
           await this.getGoods();
         }else{
+          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
-            message: '删除失败!'
+            message: res.meta.msg
           });
         }
       }).catch(() => {
@@ -334,9 +338,10 @@ export default {
             await this.getGoods();
           } else {
             //添加失败
+            throw new Error(res.meta.msg);
             this.$message({
               showClose: true,
-              message: '商品编辑失败！',
+              message: res.meta.msg,
               type: 'error'
             });
           }
@@ -383,9 +388,10 @@ export default {
             await this.getcatalogue();
           }else{
             //添加失败
+            throw new Error(res.meta.msg);
             this.$message({
               showClose: true,
-              message: '商品添加失败！',
+              message: res.meta.msg,
               type: 'error'
             });
           }
