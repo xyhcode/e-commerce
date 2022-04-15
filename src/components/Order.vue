@@ -200,12 +200,12 @@ export default {
       //console.log(1);
       let res=await this.$http.get('orders',{params:this.queryinfo});
       if(res.meta.status !==200){
-        throw new Error(res.meta.msg);
         this.$message({
           showClose:true,
           message:res.meta.msg,
           type:'error'
         });
+        throw new Error(res.meta.msg);
       }else{
         this.ordelis=res.data.goods;
         this.total=res.data.total;

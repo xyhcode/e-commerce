@@ -229,12 +229,12 @@ export default {
     async getlist(){
       let res=await this.$http.get('users',{params:this.queryinfo});
       if(res.meta.status!==200){
-        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
           type: 'error'
         });
+        throw new Error(res.meta.msg);
       }else{
         this.uslist=res.data.users;
         this.total=res.data.total;
@@ -244,11 +244,11 @@ export default {
     async getroles () {
       let res = await this.$http.get('roles');
       if(res.meta.status!==200){
-        throw new Error(res.meta.msg);
         this.$message({
           type: 'error',
           message: res.meta.msg
         });
+        throw new Error(res.meta.msg);
       }else{
         this.rolelist=res.data;
       }
@@ -287,11 +287,11 @@ export default {
           });
           await this.getlist();
         }else{
-          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
             message: res.meta.msg
           });
+          throw new Error(res.meta.msg);
         }
       }).catch(() => {
         this.$message({
@@ -323,11 +323,11 @@ export default {
         });
       }else{
         uslis.mg_state=!uslis.mg_state;
-        throw new Error(res.meta.msg);
         this.$message({
           type: 'error',
           message: res.meta.msg
         });
+        throw new Error(res.meta.msg);
       }
       console.log(uslis);
     },
@@ -362,13 +362,13 @@ export default {
             //重新查询
             await this.getlist();
           }else{
-            throw new Error(res.meta.msg);
             //添加失败
             this.$message({
               showClose: true,
               message: res.meta.msg,
               type: 'error'
             });
+            throw new Error(res.meta.msg);
           }
         }
       });
@@ -407,6 +407,7 @@ export default {
               message: '用户编辑失败！',
               type: 'error'
             });
+            throw new Error(res.meta.msg);
           }
         }
       })
@@ -445,12 +446,12 @@ export default {
             });
             await this.getlist();
           }else{
-            throw new Error(res.meta.msg);
             this.$message({
               showClose: true,
               message: res.meta.msg,
               type: 'error'
             });
+            throw new Error(res.meta.msg);
           }
         }
       });

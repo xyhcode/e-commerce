@@ -78,6 +78,7 @@ export default {
         message: res.meta.msg,
         type: 'error'
       });
+      throw new Error(res.meta.msg);
     }else{
       this.menulist=res.data;
     }

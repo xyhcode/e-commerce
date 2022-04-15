@@ -213,12 +213,12 @@ export default {
       let res = await this.$http.get('categories');
       /*console.log(res);*/
       if(res.meta.status !==200){
-        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
           type: 'error'
         });
+        throw new Error(res.meta.msg);
       }else{
         this.options=res.data;
       }
@@ -269,11 +269,11 @@ export default {
         }
         console.log(res);
       } else {
-        throw new Error(res.meta.msg);
         this.$message({
           type: 'error',
           message: res.meta.msg
         });
+        throw new Error(res.meta.msg);
       }
     },
     //tab选中触发 静态||动态
@@ -333,12 +333,12 @@ export default {
         //重新加载
         await this.getAttributelist();
       }else{
-        throw new Error(this.titletext+" "+res.meta.msg);
         this.$message({
           showClose: true,
           message: this.titletext+' '+res.meta.msg,
           type: 'error'
         });
+        throw new Error(this.titletext+" "+res.meta.msg);
       }
     },
     //编辑
@@ -404,11 +404,11 @@ export default {
         //重新加载
         await this.getAttributelist();
       }else{
-        throw new Error(res.meta.msg);
         this.$message({
           type: 'error',
           message: this.titletext+' '+res.meta.msg
         });
+        throw new Error(res.meta.msg);
       }
     },
     //删除
@@ -432,11 +432,11 @@ export default {
           //重新加载
           await this.getAttributelist();
         }else{
-          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
             message: res.meta.msg
           });
+          throw new Error(res.meta.msg);
         }
       }).catch(() => {
         this.$message({
@@ -483,11 +483,11 @@ export default {
           //重新加载
           await this.getAttributelist();
         }else{
-          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
             message: this.titletext+' '+res.meta.msg
           });
+          throw new Error(res.meta.msg);
         }
       }
     },

@@ -46,12 +46,12 @@ export default {
       let les = await this.$http.get('rights/list');
       console.log(les);
       if(les.meta.status !==200){
-        throw new Error(les.meta.msg);
         this.$message({
           showClose:true,
           message:les.meta.msg,
           type:'error'
         });
+        throw new Error(les.meta.msg);
       }else {
         this.rouls=les.data;
       }

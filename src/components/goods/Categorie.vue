@@ -167,12 +167,12 @@ export default {
       let res = await this.$http.get('categories',{params:this.ctparam});
       /*console.log(res);*/
       if(res.meta.status !==200){
-        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
           type: 'error'
         });
+        throw new Error(res.meta.msg);
       }else{
         this.calis=res.data.result;
         //设置总数
@@ -204,11 +204,11 @@ export default {
       if(res.meta.status===200){
         this.options=res.data;
       }else{
-        throw new Error(res.meta.msg);
         this.$message({
           type: 'error',
           message: res.meta.msg
         });
+        throw new Error(res.meta.msg);
       }
     },
     getkey(){//联级发生变化时
@@ -249,12 +249,12 @@ export default {
             });
           }else{
             //添加失败
-            throw new Error(res.meta.msg);
             this.$message({
               showClose: true,
               message: res.meta.msg,
               type: 'error'
             });
+            throw new Error(res.meta.msg);
           };
           //重新加载数据
           await this.getcat();
@@ -277,11 +277,11 @@ export default {
           });
           await this.getcat();
         }else{
-          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
             message: res.meta.msg
           });
+          throw new Error(res.meta.msg);
         }
       }).catch(() => {
         this.$message({
@@ -299,11 +299,11 @@ export default {
         //赋值ID
         this.editform.id=res.data.cat_id;
       }else {
-        throw new Error(res.meta.msg);
         this.$message({
           type: 'error',
           message: res.meta.msg
         });
+        throw new Error(res.meta.msg);
       };
       this.editcata=true;
     },
@@ -327,11 +327,11 @@ export default {
             });
             await this.getcat();
           }else{
-            throw new Error(res.meta.msg);
             this.$message({
               type: 'error',
               message: res.meta.msg
             });
+            throw new Error(res.meta.msg);
           }
         }
       })

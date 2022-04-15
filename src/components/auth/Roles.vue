@@ -169,12 +169,12 @@ export default {
     async getroles() {
       let res = await this.$http.get('roles');
       if (res.meta.status !==200){
-        throw new Error(res.meta.msg);
         this.$message({
           showClose:true,
           message:res.meta.msg,
           type:'error'
         });
+        throw new Error(res.meta.msg);
       }else{
         this.rolelis=res.data;
       }
@@ -209,12 +209,12 @@ export default {
     async getdgrol() {
       let les = await this.$http.get('rights/tree');
       if (les.meta.status !== 200) {
-        throw new Error(les.meta.msg);
         this.$message({
           showClose: true,
           message: les.meta.msg,
           type: 'error'
         });
+        throw new Error(les.meta.msg);
       } else {
         this.qxlis = les.data;
       }
@@ -230,12 +230,12 @@ export default {
       console.log(rids);
       let res=await this.$http.post(`roles/${pid}/rights`,{rids:rids});
       if(res.meta.status!==200){
-        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
           type: 'error'
         });
+        throw new Error(res.meta.msg);
       }else{
         this.ass=false;
         this.$message({
@@ -269,11 +269,11 @@ export default {
           });
           await this.getroles();
         }else{
-          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
             message: res.meta.msg
           });
+          throw new Error(res.meta.msg);
         }
       }).catch(() => {
         this.$message({
@@ -304,11 +304,11 @@ export default {
             this.addrolues=false;
             await this.getroles();
           }else{
-            throw new Error(res.meta.msg);
             this.$message({
               type: 'error',
               message: res.meta.msg
             });
+            throw new Error(res.meta.msg);
           }
         }
       })
@@ -350,11 +350,11 @@ export default {
             this.editrolseForm.id=0;
             await this.getroles();
           }else{
-            throw new Error(res.meta.msg);
             this.$message({
               type: 'error',
               message: res.meta.msg
             });
+            throw new Error(res.meta.msg);
           }
         }
       })
@@ -374,11 +374,11 @@ export default {
           });
           rorow.children=res.data;
         }else{
-          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
             message: res.meta.msg
           });
+          throw new Error(res.meta.msg);
         }
       }).catch(() => {
         this.$message({

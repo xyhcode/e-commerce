@@ -44,12 +44,12 @@ export default {
       myChart.setOption(res.data);
       myChart.setOption(cf);
     }else{//失败
-      throw new Error(res.meta.msg);
       this.$message({
         showClose: true,
         message: res.meta.msg,
         type: 'error'
       });
+      throw new Error(res.meta.msg);
     }
   }
 }

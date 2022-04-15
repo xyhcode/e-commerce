@@ -232,12 +232,12 @@ export default {
     async getGoods() {
       let res = await this.$http.get('goods',{params:this.queryinfo});
       if(res.meta.status !==200){
-        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
           type: 'error'
         });
+        throw new Error(res.meta.msg);
       }else{
         this.goodslis=res.data.goods;
         this.total=res.data.total;
@@ -247,12 +247,12 @@ export default {
     async getcatalogue() {
       let res = await this.$http.get('categories');
       if(res.meta.status !==200){
-        throw new Error(res.meta.msg);
         this.$message({
           showClose: true,
           message: res.meta.msg,
           type: 'error'
         });
+        throw new Error(res.meta.msg);
       }else{
         this.options=res.data;
        /* console.log(this.addrom.options);*/
@@ -287,11 +287,11 @@ export default {
           });
           await this.getGoods();
         }else{
-          throw new Error(res.meta.msg);
           this.$message({
             type: 'error',
             message: res.meta.msg
           });
+          throw new Error(res.meta.msg);
         }
       }).catch(() => {
         this.$message({
@@ -338,12 +338,12 @@ export default {
             await this.getGoods();
           } else {
             //添加失败
-            throw new Error(res.meta.msg);
             this.$message({
               showClose: true,
               message: res.meta.msg,
               type: 'error'
             });
+            throw new Error(res.meta.msg);
           }
         }
       });
@@ -388,12 +388,12 @@ export default {
             await this.getcatalogue();
           }else{
             //添加失败
-            throw new Error(res.meta.msg);
             this.$message({
               showClose: true,
               message: res.meta.msg,
               type: 'error'
             });
+            throw new Error(res.meta.msg);
           }
         }
       })

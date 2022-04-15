@@ -76,6 +76,7 @@ export default {
               message: '登入失败,请检查账号密码！',
               type: 'error'
             });
+            throw new Error(res.meta.msg);
           }
         }
       })
