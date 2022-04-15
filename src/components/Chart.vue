@@ -22,26 +22,35 @@ export default {
   },
   async mounted() {
     let res = await this.$http.get('reports/type/1');
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
-    // 绘制图表
+    if(res.meta.status === 200){//成功
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'));
+      // 绘制图表
 
-    //添加标题
-    var cf={
-      title: {
-        text: '用户来源'
-      },
-      tooltip: {
-        trigger: 'item',
-        formatter: function(params)
-        {
-          console.log(params);
-          return params.seriesName+" "+params.name+ '日'+' : '+params.data+'人';
-        }
-      },
+      //添加标题
+      var cf={
+        title: {
+          text: '用户来源'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: function(params)
+          {
+            console.log(params);
+            return params.seriesName+" "+params.name+ '日'+' : '+params.data+'人';
+          }
+        },
+      }
+      myChart.setOption(res.data);
+      myChart.setOption(cf);
+    }else{//失败
+      throw new Error(res.meta.msg);
+      this.$message({
+        showClose: true,
+        message: res.meta.msg,
+        type: 'error'
+      });
     }
-    myChart.setOption(res.data);
-    myChart.setOption(cf);
   }
 }
 </script>
