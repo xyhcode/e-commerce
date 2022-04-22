@@ -5,7 +5,7 @@
         <div class="title">
           <p>管理员登录</p>
         </div>
-        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForms">
           <el-form-item prop="username">
             <el-input type="text" clearable v-model="ruleForm.username" autocomplete="off" placeholder="用户名"></el-input>
           </el-form-item>
@@ -48,7 +48,7 @@ export default {
     //登入
     login(){
       //验证是否满足规则 true：满足  false:不满足 ruleForm是上面定义的：model
-      this.$refs.ruleForm.validate(async (valid) => {
+      this.$refs.ruleForms.validate(async (valid) => {
         if(valid!==true){
           this.$message({
             showClose: true,
@@ -59,6 +59,7 @@ export default {
         }else{
           //axios请求
           let ret=await this.$http.post('login',this.ruleForm);
+          //console.log(ret);
           //登入成功
           if(ret.meta.status===200){
             this.$message({
@@ -76,7 +77,7 @@ export default {
               message: '登入失败,请检查账号密码！',
               type: 'error'
             });
-            throw new Error(res.meta.msg);
+            throw new Error(ret.meta.msg);
           }
         }
       })

@@ -18,7 +18,7 @@ Vue.use(VueQuillEditor);
 Vue.component('tree-table', treetable);
 //axios挂Vue
 Vue.prototype.$http =axios;
-axios.defaults.baseURL="http://47.101.177.78:8888/api/private/v1/"
+axios.defaults.baseURL="http://127.0.0.1:8888/api/private/v1/"
 //设置token
 axios.interceptors.request.use(function (res){
   let token=sessionStorage.getItem('token');
